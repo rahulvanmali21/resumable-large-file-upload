@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "devDependencies": {
+    "lerna": "^6.6.2"
+  },
+  "name": "node-large-file-upload",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "dev": "lerna run dev --parallel",
+    "build": "lerna run build --parallel"
+  }
+}
