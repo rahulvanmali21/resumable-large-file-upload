@@ -11,5 +11,9 @@
     "bootstrap": "lerna bootstrap",
     "dev": "lerna run dev --parallel",
     "build": "lerna run build --parallel"
+  },
+  "dependencies": {
+    "@uppy/core": "^3.2.0",
+    "@uppy/dashboard": "^3.4.0"
   }
 }
