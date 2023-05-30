@@ -1,19 +1,31 @@
-import express, { Express } from "express";
-import tus from "tus-node-server"
+import express, { Express, NextFunction, Request, Response } from "express";
+import tus, { FileStore } from "tus-node-server"
+import cors from "cors"
+import path from "path";
 
 
 const server = new tus.Server({ path: '/files' });
 
-server.datastore = new tus.FileStore({ directory: './files' });
+
+server.datastore = new FileStore({ directory: './files' });
+
+
+
+
 
 const uploadApp:Express = express();
-uploadApp.all('*', server.handle.bind(server));
-
-
 const app:Express = express();
 
-app.use('/uploads', uploadApp);
 
+
+uploadApp.all('*', (req, res, next) => {  
+    server.handle(req, res);
+  });
+
+
+
+app.use('/uploads', uploadApp);
+app.use(cors())
 const port = process.env.PORT || 3000
 
 app.use(express.json());

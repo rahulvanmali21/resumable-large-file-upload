@@ -1,7 +1,8 @@
 {
   "version": "1.0.0",
   "devDependencies": {
-    "lerna": "^6.6.2"
+    "lerna": "^6.6.2",
+    "s3rver": "^3.7.1"
   },
   "name": "node-large-file-upload",
   "workspaces": [
