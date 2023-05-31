@@ -1,11 +1,24 @@
 const s3rver = require('s3rver');
+const corsConfig = require.resolve('s3rver/example/cors.xml');
+const websiteConfig = require.resolve('s3rver/example/website.xml');
+const fs = require("fs");
+require('dotenv').config()
+
+
+console.log(process.env.ADDRESS,process.env.PORT,process.env.BUCKET)
 
 // Configuration options for s3rver
 const options = {
-  address: 'localhost',
-  port: 4569, // Port on which s3rver will run
+  address: process.env.ADDRESS,
+  port: process.env.PORT, // Port on which s3rver will run
   silent: false, // Set to true to suppress console output
-  directory: './s3-data' // Directory to store the data files
+  directory: './s3-data', // Directory to store the data files
+  configureBuckets:[
+    {
+      name:process.env.BUCKET,
+      configs: [fs.readFileSync(corsConfig), fs.readFileSync(websiteConfig)],
+    }
+  ]
 };
 
 // Start the s3rver
@@ -15,19 +28,6 @@ const server = new s3rver(options).run(async(err, hostname) => {
   } else {
     console.log(`s3rver is running at ${hostname.port}`);
   }
-
-  // Create a new bucket
-  try {
-    const s3Client = server.getS3Client();
-    const bucketName = 'my-bucket';
-    await s3Client.createBucket({ Bucket: bucketName }).promise();
-    console.log(`Bucket "${bucketName}" created successfully.`);
-  } catch (error) {
-    console.error('Error creating bucket:', error);
-  }
-
-
-
 
 });
 
