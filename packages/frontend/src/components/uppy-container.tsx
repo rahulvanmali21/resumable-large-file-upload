@@ -14,7 +14,7 @@ const uppy = new Uppy().use(Tus, { endpoint: 'http://127.0.0.1:3000/uploads' });
 
 const UpppyContainer = () => {
   return (
-    <div>
+    <div style={{display:"flex" ,marginTop:"40px",justifyContent:"center"}}>
         <Dashboard uppy={uppy} />
     </div>
   )
